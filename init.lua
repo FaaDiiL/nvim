@@ -1,5 +1,6 @@
 require("fadil.core")
 require("fadil.lazy")
+
 function Transparent(color)
     color = color or "catppuccin"
      vim.cmd.colorscheme(color)
@@ -7,3 +8,12 @@ function Transparent(color)
      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     end
     Transparent()
+
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
