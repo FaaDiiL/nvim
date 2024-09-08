@@ -130,7 +130,7 @@ return {
             -- Default on_attach configuration
             local function buf_set_keymap(...)
               vim.api.nvim_buf_set_keymap(bufnr, ...)
-            end,
+            end
 
             local opts = { noremap = true, silent = true }
 
