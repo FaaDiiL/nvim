@@ -85,6 +85,14 @@ return {
           capabilities = capabilities,
         })
       end,
+      ["ts_ls"] = function()
+        lspconfig.ts_ls.setup({
+          cmd = { "/Users/fadilalfarhan/.config/yarn/global" },
+          capabilities = capabilities,
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+          root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+        })
+      end,
       ["graphql"] = function()
         -- configure graphql language server
         lspconfig["graphql"].setup({
@@ -117,13 +125,13 @@ return {
         })
       end,
       ["volar"] = function()
-        -- configure volar language server for Vue.js with Vite
+        -- Configure Volar language server for Vue.js with Vite
         lspconfig.volar.setup({
           filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
           init_options = {
             typescript = {
               serverPath = './node_modules/typescript/lib/tsserverlibrary.js',
-             -- tsdk = '~/kaptena/kapclear/node_modules/typescript/lib' -- replace with your actual path
+              -- tsdk = '~/kaptena/kapclear/node_modules/typescript/lib' -- replace with your actual path
             }
           },
           on_attach = function(client, bufnr)
@@ -131,20 +139,20 @@ return {
             local function buf_set_keymap(...)
               vim.api.nvim_buf_set_keymap(bufnr, ...)
             end
-
+    
             local opts = { noremap = true, silent = true }
-
+    
             -- Mappings.
-            buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { desc = "Go to definition", opts})
-            buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', { desc = "Show references", opts})
-            buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', { desc = "Go to implementation", opts})
-            buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', { desc = "Show hover info", opts})
-            buf_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { desc = "Rename symbol", opts})
-            buf_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { desc = "Code actions", opts})
-            buf_set_keymap('n', '<leader>e', '<Cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Show diagnostics", opts})
-            buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "Go to previous diagnostic", opts})
-            buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "Go to next diagnostic", opts})
-            buf_set_keymap('n', '<leader>q', '<Cmd>lua vim.diagnostic.setloclist()<CR>', { desc = "Set location list", opts})
+            buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', vim.tbl_extend('force', opts, { desc = "Go to definition" }))
+            buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', vim.tbl_extend('force', opts, { desc = "Show references" }))
+            buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', vim.tbl_extend('force', opts, { desc = "Go to implementation" }))
+            buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', vim.tbl_extend('force', opts, { desc = "Show hover info" }))
+            buf_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', vim.tbl_extend('force', opts, { desc = "Rename symbol" }))
+            buf_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', vim.tbl_extend('force', opts, { desc = "Code actions" }))
+            buf_set_keymap('n', '<leader>e', '<Cmd>lua vim.diagnostic.open_float()<CR>', vim.tbl_extend('force', opts, { desc = "Show diagnostics" }))
+            buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', vim.tbl_extend('force', opts, { desc = "Go to previous diagnostic" }))
+            buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', vim.tbl_extend('force', opts, { desc = "Go to next diagnostic" }))
+            buf_set_keymap('n', '<leader>q', '<Cmd>lua vim.diagnostic.setloclist()<CR>', vim.tbl_extend('force', opts, { desc = "Set location list" }))
           end,
           settings = {
             volar = {
@@ -156,7 +164,7 @@ return {
             }
           }
         })
-      end,
+    end,    
     })
   end,
 }
